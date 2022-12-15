@@ -17,17 +17,9 @@ func Single_byte_xor() {
 	}
 
 	for i := range bytes {
-		single_char_byte_arr := make([]byte, len(bytes))
-		for j := range single_char_byte_arr {
-			single_char_byte_arr[j] = bytes[i]
-		}
-
-		xored_bytes, err := Xor_buffers(bytes, single_char_byte_arr)
-
-		if err != nil {
-			panic(err)
-		}
-
+		// I first read "XOR'd against a single character FROM THE STRING"
+		// Still found the answer, but should be fixed
+		xored_bytes := Xor_buffer_with_rune(bytes, bytes[i])
 		xored_string := string(xored_bytes)
 
 		results = append(results, struct {
@@ -66,4 +58,13 @@ func compute_english_score(s string) float32 {
 	}
 
 	return score / float32(len(s))
+}
+
+func Xor_buffer_with_rune(buf []byte, char byte) []byte {
+	out := make([]byte, len(buf))
+	for i := range out {
+		out[i] = buf[i] ^ char
+	}
+
+	return out
 }
