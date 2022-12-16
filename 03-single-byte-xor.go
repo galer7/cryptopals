@@ -19,7 +19,7 @@ func Single_byte_xor() {
 	for i := range bytes {
 		// I first read "XOR'd against a single character FROM THE STRING"
 		// Still found the answer, but should be fixed
-		xored_bytes := Xor_buffer_with_rune(bytes, bytes[i])
+		xored_bytes := Xor_buffer_with_byte(bytes, bytes[i])
 		xored_string := string(xored_bytes)
 
 		results = append(results, struct {
@@ -29,7 +29,7 @@ func Single_byte_xor() {
 	}
 
 	sort.Slice(results, func(i, j int) bool { return results[i].Score > results[j].Score })
-	fmt.Printf("Highest score string: %s -> %f\n", results[0].Phrase, results[0].Score)
+	fmt.Printf("Highest score string: %s -> %f\n", results[0].Phrase, results[0].Score) // cOOKINGmcSLIKEAPOUNDOFBACON
 }
 
 func compute_english_score(s string) float32 {
@@ -60,11 +60,15 @@ func compute_english_score(s string) float32 {
 	return score / float32(len(s))
 }
 
-func Xor_buffer_with_rune(buf []byte, char byte) []byte {
+func Xor_buffer_with_byte(buf []byte, char byte) []byte {
 	out := make([]byte, len(buf))
 	for i := range out {
 		out[i] = buf[i] ^ char
 	}
 
 	return out
+}
+
+func Get_all_ascii() string {
+	return "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
 }
